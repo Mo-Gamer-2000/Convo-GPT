@@ -10,5 +10,12 @@ body {
 }
 
 .image-inverted {
-  filter: invert(100%);
+  box-shadow: -1px 1px 30px rgb(255, 255, 255);
+  border-radius: 100%;
+  outline: 2px solid white;
+}
+
+.image-inverted:hover {
+  outline: 2px solid Gold;
+  box-shadow: -1px 1px 30px gold;
 }

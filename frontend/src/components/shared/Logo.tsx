@@ -12,7 +12,7 @@ const Logo = () => {
     >
       <Link to={"/"}>
         <img
-          src="Logo.svg"
+          src="Logo.webp"
           alt="Logo"
           width={"40px"}
           height={"40px"}
@@ -27,7 +27,7 @@ const Logo = () => {
           textShadow: "2px 2px 20px #000",
         }}
       >
-        <span style={{ fontSize: "20px" }}>Convo</span>-GPT
+        <span style={{ fontSize: "20px", color: "gold" }}>Convo</span>-GPT
       </Typography>
     </div>
   );
