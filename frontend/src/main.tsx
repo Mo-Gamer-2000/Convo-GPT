@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Roboto Slab, serif",
+    fontFamily: "Roboto Mono, serif",
     allVariants: { color: "white" },
   },
 });

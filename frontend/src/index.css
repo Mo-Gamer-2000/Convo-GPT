@@ -8,3 +8,7 @@ body {
   color: white;
   font-family: "Roboto Mono", serif;
 }
+
+.image-inverted {
+  filter: invert(100%);
+}
