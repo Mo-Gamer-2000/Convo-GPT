@@ -16,6 +16,16 @@ body {
 }
 
 .image-inverted:hover {
-  outline: 2px solid Gold;
+  outline: 2px solid gold;
   box-shadow: -1px 1px 30px gold;
+}
+
+.nav-link {
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 10px 0 10px;
+  padding: 8px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  letter-spacing: 1px;
 }
