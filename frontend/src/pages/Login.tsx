@@ -3,6 +3,15 @@ import CustomisedInput from "../components/shared/CustomisedInput";
 import { IoMdLogIn } from "react-icons/io";
 
 const Login = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    console.log("====================================");
+    console.log(email, password);
+    console.log("====================================");
+  };
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
@@ -18,6 +27,7 @@ const Login = () => {
         marginTop={16}
       >
         <form
+          onSubmit={handleSubmit}
           style={{
             margin: "auto",
             padding: "30px",
