@@ -3,7 +3,7 @@ import {
   getAllUsers,
   userLogin,
   userSignup,
-} from "../controllers/user.controllers.js";
+} from "../controllers/user-controllers.js";
 import {
   loginValidator,
   signupValidator,
