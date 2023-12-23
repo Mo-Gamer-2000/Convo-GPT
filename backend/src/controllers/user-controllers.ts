@@ -4,13 +4,14 @@ import { hash, compare } from "bcrypt";
 import { createToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constants.js";
 
-// Get all of the Users
+// Get All of the Users
 export const getAllUsers = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
+    // Get All Users
     const users = await User.find();
     return res.status(200).json({ message: "OK", users });
   } catch (error) {
@@ -19,26 +20,21 @@ export const getAllUsers = async (
   }
 };
 
-// User Sign Up
 export const userSignup = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
+    // Sser Signup
     const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email });
-    if (existingUser)
-      return res.status(401).send("User has been already registered");
+    if (existingUser) return res.status(401).send("User already registered");
     const hashedPassword = await hash(password, 10);
-    const user = new User({
-      name,
-      email,
-      password: hashedPassword,
-    });
+    const user = new User({ name, email, password: hashedPassword });
     await user.save();
 
-    // Create token & store cookie
+    // Create Token and Store Cookie
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
       domain: "localhost",
@@ -66,7 +62,6 @@ export const userSignup = async (
   }
 };
 
-// User Login
 export const userLogin = async (
   req: Request,
   res: Response,
@@ -84,6 +79,7 @@ export const userLogin = async (
       return res.status(403).send("Incorrect Password");
     }
 
+    // Create Token and Store Cookie
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
       domain: "localhost",
@@ -102,6 +98,29 @@ export const userLogin = async (
       signed: true,
     });
 
+    return res
+      .status(200)
+      .json({ message: "OK", name: user.name, email: user.email });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ message: "ERROR", cause: error.message });
+  }
+};
+
+export const verifyUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // User Token Check
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res.status(401).send("User not Registered OR Token Malfunctioned");
+    }
+    if (user._id.toString() !== res.locals.jwtData.id) {
+      return res.status(401).send("Permissions not Granted");
+    }
     return res
       .status(200)
       .json({ message: "OK", name: user.name, email: user.email });
