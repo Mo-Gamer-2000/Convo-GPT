@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    // Fetch if the User's Cookies are Valid then skip Login.
+    // Fetch if the User's Cookies are Valid then Skip Login.
     async function checkStatus() {
       const data = await checkAuthStatus();
       if (data) {
@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsLoggedIn(true);
     }
   };
+
   const signup = async (name: string, email: string, password: string) => {};
   const logout = async () => {};
 
@@ -50,8 +51,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     user,
     isLoggedIn,
     login,
-    signup,
     logout,
+    signup,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
