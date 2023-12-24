@@ -69,7 +69,3 @@ Now, you have both the frontend and backend up and running! Interact with the AI
 
 License
 This project is licensed under the MIT License – embrace the freedom!
-
-css
-
-This revision introduces clear headers, subheaders, and consistent formatting to improve the overall visibility and readability of the README.
