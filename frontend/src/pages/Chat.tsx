@@ -7,22 +7,24 @@ import { IoMdSend } from "react-icons/io";
 const chatMessages = [
   {
     role: "user",
-    content: "Hello, can you tell me the weather forecast for tomorrow?",
+    content:
+      "Hello, could you please provide the weather forecast for tomorrow?",
   },
   {
     role: "assistant",
-    content: "Of course! I'll check the weather forecast for you.",
+    content: "Certainly! I'll check the weather forecast for you.",
   },
-  { role: "assistant", content: "Where are you located?" },
+  { role: "assistant", content: "May I know your current location?" },
   { role: "user", content: "I'm in New York." },
   {
     role: "assistant",
-    content: "Great! I'll get the weather forecast for New York tomorrow.",
+    content: "Great! I'll fetch the weather forecast for New York tomorrow.",
   },
 ];
 
 const Chat = () => {
   const auth = useAuth();
+
   return (
     <Box
       sx={{
@@ -84,7 +86,7 @@ const Chat = () => {
             Feel free to ask any questions related to technology, economics, or
             any general inquiries you might have.
             <br />
-            <u>Kindly refrain from sharing any personal data.</u>
+            <u>Please refrain from sharing any personal data.</u>
           </Typography>
           <Button
             sx={{
@@ -165,7 +167,7 @@ const Chat = () => {
               }}
             />
             <IconButton
-              sx={{ ml: "auto", color: "white", paddingRight: "30px" }}
+              sx={{ ml: "auto", color: "#FFC100", paddingRight: "30px" }}
             >
               <IoMdSend />
             </IconButton>

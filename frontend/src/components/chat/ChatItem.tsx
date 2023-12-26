@@ -9,9 +9,18 @@ const ChatItem = ({
   role: "user" | "assistant";
 }) => {
   const auth = useAuth();
-  return role == "assistant" ? (
-    <Box sx={{ display: "flex", p: 2, bgcolor: "#004d5612", my: 2, gap: 2 }}>
-      <Avatar sx={{ ml: 0 }}>
+
+  return role === "assistant" ? (
+    <Box
+      sx={{
+        display: "flex",
+        padding: 2,
+        backgroundColor: "#004d5661",
+        marginY: 2,
+        gap: 2,
+      }}
+    >
+      <Avatar sx={{ marginLeft: 0 }}>
         <img src="Logo.webp" alt="Logo" width={"30px"} />
       </Avatar>
       <Box>
@@ -19,8 +28,10 @@ const ChatItem = ({
       </Box>
     </Box>
   ) : (
-    <Box sx={{ display: "flex", p: 2, bgcolor: "#004d56", gap: 2 }}>
-      <Avatar sx={{ ml: 0, bgcolor: "black", coolor: "white" }}>
+    <Box
+      sx={{ display: "flex", padding: 2, backgroundColor: "#FFB100", gap: 2 }}
+    >
+      <Avatar sx={{ marginLeft: 0, backgroundColor: "black", color: "white" }}>
         {auth?.user?.name[0]}
         {auth?.user?.name.split(" ")[1][0]}
       </Avatar>
