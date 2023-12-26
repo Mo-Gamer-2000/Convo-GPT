@@ -19,6 +19,7 @@ const Header = () => {
                 to="/chat"
                 text="Chat to Convo"
                 textColor="black"
+                
               />
               <NavigationLink
                 bg="white"

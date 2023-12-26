@@ -1,10 +1,28 @@
-import { Avatar, Box, Button, Typography } from "@mui/material";
+import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import { yellow } from "@mui/material/colors";
+import ChatItem from "../components/chat/ChatItem";
+import { IoMdSend } from "react-icons/io";
+
+const chatMessages = [
+  {
+    role: "user",
+    content: "Hello, can you tell me the weather forecast for tomorrow?",
+  },
+  {
+    role: "assistant",
+    content: "Of course! I'll check the weather forecast for you.",
+  },
+  { role: "assistant", content: "Where are you located?" },
+  { role: "user", content: "I'm in New York." },
+  {
+    role: "assistant",
+    content: "Great! I'll get the weather forecast for New York tomorrow.",
+  },
+];
 
 const Chat = () => {
   const auth = useAuth();
-
   return (
     <Box
       sx={{
@@ -16,7 +34,13 @@ const Chat = () => {
         gap: 3,
       }}
     >
-      <Box sx={{ display: { md: "flex", xs: "none", sm: "none" } }}>
+      <Box
+        sx={{
+          display: { md: "flex", xs: "none", sm: "none" },
+          flex: 0.2,
+          flexDirection: "column",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -40,7 +64,13 @@ const Chat = () => {
             {auth?.user?.name[0]}
             {auth?.user?.name.split(" ")[1][0]}
           </Avatar>
-          <Typography sx={{ marginX: "auto", fontFamily: "Work Sans" }}>
+          <Typography
+            sx={{
+              marginX: "auto",
+              fontFamily: "Work Sans",
+              textAlign: "center",
+            }}
+          >
             <u>Convo-GPT</u>, how may I assist you today?
           </Typography>
           <Typography
@@ -66,12 +96,80 @@ const Chat = () => {
               marginX: "auto",
               backgroundColor: yellow[600],
               ":hover": {
-                backgroundColor: yellow.A700,
+                backgroundColor: "white",
+                transition: "0.5s",
               },
             }}
           >
             Clear Conversation
           </Button>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flex: { md: 0.8, xs: 1, sm: 1 },
+          flexDirection: "column",
+          px: 3,
+        }}
+      >
+        <Typography
+          sx={{
+            textAlign: "center",
+            fontSize: "40px",
+            color: "white",
+            mb: 2,
+            mx: "auto",
+          }}
+        >
+          Convo-GPT - Powered by ChatGPT 3.5 Turbo
+        </Typography>
+        <Box
+          sx={{
+            width: "100%",
+            height: "60vh",
+            borderRadius: 3,
+            mx: "auto",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "scroll",
+            overflowX: "hidden",
+            overflowY: "auto",
+            scrollBehavior: "smooth",
+          }}
+        >
+          {chatMessages.map((chat, index) => (
+            <ChatItem content={chat.content} role={chat.role} key={index} />
+          ))}
+          <div
+            style={{
+              width: "100%",
+              padding: "20px",
+              borderRadius: 8,
+              backgroundColor: "rgb(12,27,39)",
+              display: "flex",
+              margin: "auto",
+            }}
+          >
+            <input
+              type="text"
+              style={{
+                width: "100%",
+                height: "auto",
+                backgroundColor: "transparent",
+                padding: "10px",
+                border: "none",
+                outline: "none",
+                color: "white",
+                fontSize: "20px",
+              }}
+            />
+            <IconButton
+              sx={{ ml: "auto", color: "white", paddingRight: "30px" }}
+            >
+              <IoMdSend />
+            </IconButton>
+          </div>
         </Box>
       </Box>
     </Box>
