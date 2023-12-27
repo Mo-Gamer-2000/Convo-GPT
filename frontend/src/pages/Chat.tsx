@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { yellow } from "@mui/material/colors";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
+import { useRef } from "react";
 
 const chatMessages = [
   {
@@ -23,7 +24,11 @@ const chatMessages = [
 ];
 
 const Chat = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const auth = useAuth();
+  const handleSubmit = async () => {
+    console.log(inputRef.current?.value);
+  };
 
   return (
     <Box
@@ -141,6 +146,7 @@ const Chat = () => {
           }}
         >
           {chatMessages.map((chat, index) => (
+            //@ts-ignore
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
           <div
@@ -154,6 +160,7 @@ const Chat = () => {
             }}
           >
             <input
+              ref={inputRef}
               type="text"
               style={{
                 width: "100%",
@@ -167,6 +174,7 @@ const Chat = () => {
               }}
             />
             <IconButton
+              onClick={handleSubmit}
               sx={{ ml: "auto", color: "#FFC100", paddingRight: "30px" }}
             >
               <IoMdSend />
