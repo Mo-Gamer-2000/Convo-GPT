@@ -3,31 +3,24 @@ import { useAuth } from "../context/AuthContext";
 import { yellow } from "@mui/material/colors";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-const chatMessages = [
-  {
-    role: "user",
-    content:
-      "Hello, could you please provide the weather forecast for tomorrow?",
-  },
-  {
-    role: "assistant",
-    content: "Certainly! I'll check the weather forecast for you.",
-  },
-  { role: "assistant", content: "May I know your current location?" },
-  { role: "user", content: "I'm in New York." },
-  {
-    role: "assistant",
-    content: "Great! I'll fetch the weather forecast for New York tomorrow.",
-  },
-];
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
 
 const Chat = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const auth = useAuth();
+  const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const handleSubmit = async () => {
-    console.log(inputRef.current?.value);
+    const content = inputRef.current?.value as string;
+    if (inputRef && inputRef.current) {
+      inputRef.current.value = "";
+    }
+    const newMessage: Message = { role: "user", content };
+    setChatMessages((prev) => [...prev, newMessage]);
   };
 
   return (
@@ -146,7 +139,8 @@ const Chat = () => {
           }}
         >
           {chatMessages.map((chat, index) => (
-            //@ts-ignore
+            // eslint-disable-next-line
+            // @ts-ignore
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
           <div
