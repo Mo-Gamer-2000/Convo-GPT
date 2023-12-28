@@ -8,7 +8,7 @@ export const configureOpenAI = () => {
     // Set the API key from the environment variable
     apiKey: process.env.OPEN_AI_SECRET,
     // Set the organization ID from the environment variable
-    organization: process.env.OPENAI_ORGANISATION_ID,
+    organization: process.env.OPENAI_ORAGANIZATION_ID,
   });
 
   // Return the configured OpenAI settings
