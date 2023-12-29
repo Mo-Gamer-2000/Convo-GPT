@@ -20,8 +20,8 @@ const ChatItem = ({
         gap: 2,
       }}
     >
-      <Avatar sx={{ marginLeft: 0 }}>
-        <img src="Logo.webp" alt="Logo" width={"30px"} />
+      <Avatar sx={{ marginLeft: 0, bgcolor: "black" }}>
+        <img src="Logo.webp" alt="Logo" width={"40px"} className="bg-color" />
       </Avatar>
       <Box>
         <Typography fontSize={"20px"}>{content}</Typography>
