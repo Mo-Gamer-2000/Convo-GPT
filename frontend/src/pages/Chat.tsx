@@ -131,7 +131,7 @@ const Chat = () => {
         <Box
           sx={{
             width: "100%",
-            height: "60vh",
+            height: "70vh",
             borderRadius: 3,
             mx: "auto",
             display: "flex",
