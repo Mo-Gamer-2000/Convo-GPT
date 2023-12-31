@@ -2,7 +2,10 @@
 import { Router } from "express";
 import { verifyToken } from "../utils/token-manager.js";
 import { chatCompletionValidator, validate } from "../utils/validators.js";
-import { generateChatCompletion } from "../controllers/chat-controllers.js";
+import {
+  generateChatCompletion,
+  sendChatsToUser,
+} from "../controllers/chat-controllers.js";
 
 // Create a router for chat-related routes
 const chatRoutes = Router();
@@ -17,6 +20,7 @@ chatRoutes.post(
   // Call the controller function to generate a chat completion
   generateChatCompletion
 );
+chatRoutes.get("/all-chats", verifyToken, sendChatsToUser);
 
 // Export the router for use in the main application
 export default chatRoutes;

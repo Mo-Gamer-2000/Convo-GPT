@@ -53,3 +53,25 @@ export const generateChatCompletion = async (
     return res.status(500).json({ message: "Oops!, something went wrong :|" });
   }
 };
+
+// Verify user based on the provided token
+export const sendChatsToUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Retrieve user information using the JWT data
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res.status(401).send("User not Registered OR Token Malfunctioned");
+    }
+    if (user._id.toString() !== res.locals.jwtData.id) {
+      return res.status(401).send("Permissions not Granted");
+    }
+    return res.status(200).json({ message: "OK", chats: user.chats });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ message: "ERROR", cause: error.message });
+  }
+};
