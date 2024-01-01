@@ -75,3 +75,30 @@ export const sendChatsToUser = async (
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
+
+// Verify user based on the provided token
+export const deleteChats = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Retrieve user information using the JWT data
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res.status(401).send("User not Registered OR Token Malfunctioned");
+    }
+    if (user._id.toString() !== res.locals.jwtData.id) {
+      return res.status(401).send("Permissions not Granted");
+    }
+    // Delete all chats for this user
+    // eslint-disable-next-line
+    // @ts-ignore
+    user.chats = [];
+    await user.save();
+    return res.status(200).json({ message: "OK" });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ message: "ERROR", cause: error.message });
+  }
+};

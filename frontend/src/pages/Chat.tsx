@@ -4,7 +4,11 @@ import { yellow } from "@mui/material/colors";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
 import { useLayoutEffect, useRef, useState } from "react";
-import { getUserChats, sendChatRequest } from "../helpers/api-communicator";
+import {
+  deleteUserChats,
+  getUserChats,
+  sendChatRequest,
+} from "../helpers/api-communicator";
 import toast from "react-hot-toast";
 
 type Message = {
@@ -25,6 +29,18 @@ const Chat = () => {
     setChatMessages((prev) => [...prev, newMessage]);
     const chatData = await sendChatRequest(content);
     setChatMessages([...chatData.chats]);
+  };
+
+  const handleDleteChats = async () => {
+    try {
+      toast.loading("Deleting Chats!", { id: "deletechats" });
+      await deleteUserChats();
+      setChatMessages([]);
+      toast.success("Chats Deleted Successfully!", { id: "deletechats" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error Occured while deleting chats!", { id: "deletechats" });
+    }
   };
 
   useLayoutEffect(() => {
@@ -108,6 +124,7 @@ const Chat = () => {
             <u>Please refrain from sharing any personal data.</u>
           </Typography>
           <Button
+            onClick={handleDleteChats}
             sx={{
               width: "200px",
               marginY: "auto",
