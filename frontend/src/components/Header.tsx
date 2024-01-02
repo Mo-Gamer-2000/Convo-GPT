@@ -19,14 +19,13 @@ const Header = () => {
                 to="/chat"
                 text="Chat to Convo"
                 textColor="black"
-                
               />
               <NavigationLink
                 bg="white"
                 to="/"
                 text="Logout"
                 textColor="black"
-                onClick={() => auth.logout()}
+                onClick={auth.logout}
               />
             </>
           ) : (

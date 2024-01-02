@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   getAllUsers,
   userLogin,
+  userLogout,
   userSignup,
   verifyUser,
 } from "../controllers/user-controllers.js";
@@ -27,6 +28,9 @@ userRoutes.post("/login", validate(loginValidator), userLogin);
 
 // Define a route to check the authentication status of the user
 userRoutes.get("/auth-status", verifyToken, verifyUser);
+
+// Define a route to user logout
+userRoutes.get("/logout", verifyToken, userLogout);
 
 // Export the router for use in the main application
 export default userRoutes;

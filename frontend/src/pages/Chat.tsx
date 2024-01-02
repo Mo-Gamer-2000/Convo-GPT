@@ -3,13 +3,14 @@ import { useAuth } from "../context/AuthContext";
 import { yellow } from "@mui/material/colors";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   deleteUserChats,
   getUserChats,
   sendChatRequest,
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type Message = {
   role: "user" | "assistant";
@@ -17,6 +18,7 @@ type Message = {
 };
 
 const Chat = () => {
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const auth = useAuth();
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -31,7 +33,7 @@ const Chat = () => {
     setChatMessages([...chatData.chats]);
   };
 
-  const handleDleteChats = async () => {
+  const handleDeleteChats = async () => {
     try {
       toast.loading("Deleting Chats!", { id: "deletechats" });
       await deleteUserChats();
@@ -57,6 +59,12 @@ const Chat = () => {
             id: "loadchats",
           });
         });
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if (!auth?.user) {
+      return navigate("/login");
     }
   }, [auth]);
 
@@ -124,7 +132,7 @@ const Chat = () => {
             <u>Please refrain from sharing any personal data.</u>
           </Typography>
           <Button
-            onClick={handleDleteChats}
+            onClick={handleDeleteChats}
             sx={{
               width: "200px",
               marginY: "auto",
