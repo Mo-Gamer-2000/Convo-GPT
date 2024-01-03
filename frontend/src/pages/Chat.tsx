@@ -192,7 +192,6 @@ const Chat = () => {
           <div
             style={{
               width: "100%",
-              padding: "20px",
               borderRadius: 8,
               backgroundColor: "rgb(12,27,39)",
               display: "flex",
@@ -206,17 +205,14 @@ const Chat = () => {
                 width: "100%",
                 height: "auto",
                 backgroundColor: "transparent",
-                padding: "10px",
+                padding: "30px",
                 border: "none",
                 outline: "none",
                 color: "white",
                 fontSize: "20px",
               }}
             />
-            <IconButton
-              onClick={handleSubmit}
-              sx={{ ml: "auto", color: "#FFC100", paddingRight: "30px" }}
-            >
+            <IconButton onClick={handleSubmit} sx={{ color: "#FFC100", mx: 1 }}>
               <IoMdSend />
             </IconButton>
           </div>

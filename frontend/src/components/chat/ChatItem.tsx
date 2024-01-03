@@ -43,6 +43,7 @@ const ChatItem = ({
         padding: 2,
         backgroundColor: "#004d5661",
         marginY: 2,
+        borderRadius: 2,
         gap: 2,
       }}
     >
