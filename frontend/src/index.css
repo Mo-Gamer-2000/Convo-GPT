@@ -20,6 +20,10 @@ body {
   box-shadow: -1px 1px 30px gold;
 }
 
+.image-inverted-logo {
+  filter: invert(100%);
+}
+
 .nav-link {
   font-weight: 600;
   text-transform: uppercase;
@@ -50,4 +54,12 @@ body {
   to {
     transform: rotate(359deg);
   }
+}
+
+.X-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  font-family: 'Times New Roman', Times, serif;
 }

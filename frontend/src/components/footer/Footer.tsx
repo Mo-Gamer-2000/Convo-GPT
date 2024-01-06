@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer>
@@ -17,7 +18,7 @@ const Footer = () => {
             padding: "20px",
           }}
         >
-          All Rights Reserved.
+          All Rights Reserved. &copy; {new Date().getFullYear()}
           <span>
             <Link
               style={{ color: "gold" }}

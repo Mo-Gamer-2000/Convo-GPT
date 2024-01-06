@@ -36,15 +36,15 @@ const Home = () => {
             style={{ width: "200px", margin: "auto" }}
           />
           <img
-            className="image-inverted rotate"
-            src="LoginRobot.webp"
-            alt="Robot"
+            className="image-inverted-logo rotate"
+            src="OpenAI.webp"
+            alt="OpneAI"
             style={{ width: "200px", margin: "auto" }}
           />
         </Box>
         <Box sx={{ display: "flex", width: "100%", marginX: "auto" }}>
           <img
-            src="LoginRobot.webp"
+            src="CODE.webp"
             alt="Robot"
             style={{
               display: "flex",

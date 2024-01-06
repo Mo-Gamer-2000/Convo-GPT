@@ -21,7 +21,11 @@ chatRoutes.post(
   // Call the controller function to generate a chat completion
   generateChatCompletion
 );
+
+// Define a protected API route for retrieving all user chats
 chatRoutes.get("/all-chats", verifyToken, sendChatsToUser);
+
+// Define a protected API route for deleting all user chats
 chatRoutes.delete("/delete", verifyToken, deleteChats);
 
 // Export the router for use in the main application
