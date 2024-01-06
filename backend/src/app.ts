@@ -14,7 +14,7 @@ const app = express();
 
 // Middlewares
 // Enable Cross-Origin Resource Sharing (CORS) with specified options
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://convo-gpt.onrender.com", credentials: true }));
 // Parse JSON request bodies
 app.use(express.json());
 // Parse cookies using the specified secret
