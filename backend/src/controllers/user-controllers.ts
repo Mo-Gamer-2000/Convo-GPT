@@ -1,3 +1,4 @@
+// Import necessary modules and dependencies
 import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
 import { hash, compare } from "bcrypt";
@@ -13,9 +14,15 @@ export const getAllUsers = async (
   try {
     // Fetch all users from the database
     const users = await User.find();
+
+    // Log information only in development
+    if (process.env.NODE_ENV === "development") {
+      console.log("Retrieved all users successfully.");
+    }
+
     return res.status(200).json({ message: "OK", users });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
@@ -34,6 +41,11 @@ export const userSignup = async (
     const hashedPassword = await hash(password, 10);
     const user = new User({ name, email, password: hashedPassword });
     await user.save();
+
+    // Log information only in development
+    if (process.env.NODE_ENV === "development") {
+      console.log("User signed up successfully:", user.email);
+    }
 
     // Create Token and Store Cookie
     res.clearCookie(COOKIE_NAME, {
@@ -58,7 +70,7 @@ export const userSignup = async (
       .status(201)
       .json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
@@ -79,6 +91,11 @@ export const userLogin = async (
     const isPasswordCorrect = await compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.status(403).send("Incorrect Password");
+    }
+
+    // Log information only in development
+    if (process.env.NODE_ENV === "development") {
+      console.log("User logged in successfully:", user.email);
     }
 
     // Create Token and Store Cookie
@@ -104,7 +121,7 @@ export const userLogin = async (
       .status(200)
       .json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
@@ -124,11 +141,17 @@ export const verifyUser = async (
     if (user._id.toString() !== res.locals.jwtData.id) {
       return res.status(401).send("Permissions not Granted");
     }
+
+    // Log information only in development
+    if (process.env.NODE_ENV === "development") {
+      console.log("User verified successfully:", user.email);
+    }
+
     return res
       .status(200)
       .json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
@@ -149,6 +172,11 @@ export const userLogout = async (
       return res.status(401).send("Permissions not Granted");
     }
 
+    // Log information only in development
+    if (process.env.NODE_ENV === "development") {
+      console.log("User logged out successfully:", user.email);
+    }
+
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
       domain: "localhost",
@@ -160,7 +188,7 @@ export const userLogout = async (
       .status(200)
       .json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };

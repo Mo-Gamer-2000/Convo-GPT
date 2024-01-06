@@ -7,10 +7,14 @@ const PORT = process.env.PORT || 5000;
 connectToDatabase()
     .then(() => {
     // If the database connection is successful, start the Express server
-    app.listen(PORT, () => console.log(`Server is open and connected to the database on port ${PORT} 🚀`));
+    app.listen(PORT, () => {
+        if (process.env.NODE_ENV === 'production') {
+            console.log(`Server is open and connected to the database on port ${PORT} 🚀`);
+        }
+    });
 })
     .catch((err) => {
     // If there's an error connecting to the database, log the error
-    console.log("Error connecting to the database:", err);
+    console.error("Error connecting to the database:", err);
 });
 //# sourceMappingURL=index.js.map

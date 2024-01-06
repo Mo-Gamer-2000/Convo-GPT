@@ -1,9 +1,9 @@
+// Import necessary functions from Mongoose for database connection
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
-import { useAuth } from "../context/AuthContext";
 import { yellow } from "@mui/material/colors";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   deleteUserChats,
   getUserChats,
@@ -11,6 +11,7 @@ import {
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 type Message = {
   role: "user" | "assistant";
@@ -29,8 +30,12 @@ const Chat = () => {
     }
     const newMessage: Message = { role: "user", content };
     setChatMessages((prev) => [...prev, newMessage]);
-    const chatData = await sendChatRequest(content);
-    setChatMessages([...chatData.chats]);
+    try {
+      const chatData = await sendChatRequest(content);
+      setChatMessages([...chatData.chats]);
+    } catch (error) {
+      console.error("Error sending chat request:", error);
+    }
   };
 
   const handleDeleteChats = async () => {
@@ -40,8 +45,10 @@ const Chat = () => {
       setChatMessages([]);
       toast.success("Chats Deleted Successfully!", { id: "deletechats" });
     } catch (error) {
-      console.log(error);
-      toast.error("Error Occured while deleting chats!", { id: "deletechats" });
+      console.error("Error deleting chats:", error);
+      toast.error("Error Occurred while deleting chats!", {
+        id: "deletechats",
+      });
     }
   };
 
@@ -54,7 +61,7 @@ const Chat = () => {
           toast.success("Chats Loaded Successfully!", { id: "loadchats" });
         })
         .catch((err) => {
-          console.log(err);
+          console.error("Error loading chats:", err);
           toast.error("Error Occurred while loading chats.", {
             id: "loadchats",
           });

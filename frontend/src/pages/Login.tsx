@@ -9,22 +9,26 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   const auth = useAuth();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
     try {
       toast.loading("Signing In", { id: "login" });
       await auth?.login(email, password);
       toast.success("Signed In Successfully", { id: "login" });
     } catch (error) {
-      console.log(error);
-      toast.error("Signing In was Unsuccessfull", { id: "login" });
+      console.error("Error during login:", error);
+      toast.error("Signing In was Unsuccessful", { id: "login" });
     }
   };
+
   useEffect(() => {
     if (auth?.user) {
+      console.warn("User is already authenticated, redirecting to chat");
       return navigate("/chat");
     }
   }, [auth]);

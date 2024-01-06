@@ -9,23 +9,27 @@ import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const navigate = useNavigate();
   const auth = useAuth();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
     try {
       toast.loading("Signing Up", { id: "signup" });
       await auth?.signup(name, email, password);
       toast.success("Signed Up Successfully", { id: "signup" });
     } catch (error) {
-      console.log(error);
-      toast.error("Signing Up was Unsuccessfull", { id: "signup" });
+      console.error("Error during signup:", error);
+      toast.error("Signing Up was Unsuccessful", { id: "signup" });
     }
   };
+
   useEffect(() => {
     if (auth?.user) {
+      console.warn("User is already authenticated, redirecting to chat");
       return navigate("/chat");
     }
   }, [auth]);

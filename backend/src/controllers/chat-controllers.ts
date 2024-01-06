@@ -45,11 +45,16 @@ export const generateChatCompletion = async (
     user.chats.push(chatResponse.data.choices[0].message);
     await user.save();
 
+    // Log information only in development
+    if (process.env.NODE_ENV === 'development') {
+      console.log("Chat generated successfully:", chatResponse.data.choices[0].message);
+    }
+
     // Return the updated chats to the client
     return res.status(200).json({ chats: user.chats });
   } catch (error) {
     // Handle errors and return an appropriate response to the client
-    console.log("Error in generating chat completion: ", error);
+    console.error("Error in generating chat completion: ", error);
     return res.status(500).json({ message: "Oops!, something went wrong :|" });
   }
 };
@@ -69,9 +74,15 @@ export const sendChatsToUser = async (
     if (user._id.toString() !== res.locals.jwtData.id) {
       return res.status(401).send("Permissions not Granted");
     }
+
+    // Log information only in development
+    if (process.env.NODE_ENV === 'development') {
+      console.log("Chats sent to the user successfully.");
+    }
+
     return res.status(200).json({ message: "OK", chats: user.chats });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
@@ -91,6 +102,12 @@ export const deleteChats = async (
     if (user._id.toString() !== res.locals.jwtData.id) {
       return res.status(401).send("Permissions not Granted");
     }
+
+    // Log information only in development
+    if (process.env.NODE_ENV === 'development') {
+      console.log("Chats deleted successfully.");
+    }
+
     // Delete all chats for this user
     // eslint-disable-next-line
     // @ts-ignore
@@ -98,7 +115,7 @@ export const deleteChats = async (
     await user.save();
     return res.status(200).json({ message: "OK" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
