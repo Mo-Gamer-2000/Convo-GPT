@@ -50,7 +50,7 @@ export const userSignup = async (
     // Create Token and Store Cookie
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "https://convo-gpt.onrender.com",
+      domain: "https://Convo-GPT.onrender.com/api/v1",
       signed: true,
       path: "/",
     });
@@ -60,7 +60,7 @@ export const userSignup = async (
     expires.setDate(expires.getDate() + 7);
     res.cookie(COOKIE_NAME, token, {
       path: "/",
-      domain: "https://convo-gpt.onrender.com",
+      domain: "https://Convo-GPT.onrender.com/api/v1",
       expires,
       httpOnly: true,
       signed: true,
@@ -101,7 +101,7 @@ export const userLogin = async (
     // Create Token and Store Cookie
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "https://convo-gpt.onrender.com",
+      domain: "https://Convo-GPT.onrender.com/api/v1",
       signed: true,
       path: "/",
     });
@@ -111,7 +111,7 @@ export const userLogin = async (
     expires.setDate(expires.getDate() + 7);
     res.cookie(COOKIE_NAME, token, {
       path: "/",
-      domain: "https://convo-gpt.onrender.com",
+      domain: "https://Convo-GPT.onrender.com/api/v1",
       expires,
       httpOnly: true,
       signed: true,
@@ -179,7 +179,7 @@ export const userLogout = async (
 
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "https://convo-gpt.onrender.com",
+      domain: "https://Convo-GPT.onrender.com/api/v1",
       signed: true,
       path: "/",
     });
