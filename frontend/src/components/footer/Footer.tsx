@@ -23,7 +23,7 @@ const Footer = () => {
             <Link
               style={{ color: "gold" }}
               className="nav-link"
-              to={"https://mern-portfolio-app-m8xr.onrender.com/"}
+              to={"https://moeez-abdul.netlify.app/"}
             >
               Moeez Abdul
             </Link>
