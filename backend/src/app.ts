@@ -24,7 +24,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // *-- MUST BE REMOVED BEFORE *PRODUCTION* --*
 // Enable logging in development mode
-app.use(morgan("dev"));
+//app.use(morgan("dev"));
 
 // Use the defined routes under the "/api/v1" endpoint
 app.use("/api/v1", appRouter);
